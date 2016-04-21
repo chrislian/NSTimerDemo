@@ -20,22 +20,19 @@ class ThirdViewController: UIViewController {
     
     deinit{
         print("\(#file) deninit")
+        stopTimer()
     }
     
     //MARK: - event response
-    
     @IBAction func startButtonClicked(sender: AnyObject) {
-        
         startTimer()
     }
     
     @IBAction func stopButtonClicked(sender: AnyObject) {
-        
         stopTimer()
     }
     
-    func timeFire(timer:NSTimer){
-        
+    func timeFire(){
         print("\(#file) fire...Count:\(count)")
         count += 1
     }
@@ -47,10 +44,13 @@ class ThirdViewController: UIViewController {
             print("\(#file) timer is already running")
             return
         }
-        
-        lTimer = NSTimer(timeInterval: 1.0, target: self, selector: #selector(timeFire(_:)), userInfo: nil, repeats: true)
-        NSRunLoop.currentRunLoop().addTimer(lTimer!, forMode: NSRunLoopCommonModes)
         print("\(#file) start timer")
+        
+        
+        lTimer = NSTimer.cl_startTimer(1.0, repeats: true){ [weak self] in
+            self?.timeFire()
+            //这里`self`必须申明为`unowned` or `weak`, 否则会造成循环引用
+        }
     }
     
     private func stopTimer(){

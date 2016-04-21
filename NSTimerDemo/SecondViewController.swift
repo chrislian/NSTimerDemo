@@ -18,10 +18,10 @@ class SecondViewController: UIViewController {
     }
     deinit{
         print("\(#file) deninit")
+        stopTimer()
     }
     
     //MARK: - event response
-    
     @IBAction func startButtonClicked(sender: AnyObject) {
         
         startTimer()
