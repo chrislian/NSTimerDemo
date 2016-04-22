@@ -20,7 +20,7 @@ class ThirdViewController: UIViewController {
     
     deinit{
         print("\(#file) deninit")
-        stopTimer()
+        //stopTimer()
     }
     
     //MARK: - event response

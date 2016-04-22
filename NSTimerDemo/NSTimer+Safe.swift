@@ -10,7 +10,7 @@ import Foundation
 
 public extension NSTimer{
     
-    private class CLTimerObj{
+    private class CLObject{
         
         let closure:(Void->Void)
         init(closure:(Void->Void)){
@@ -29,9 +29,9 @@ public extension NSTimer{
      */
     public class func cl_startTimer(interval:NSTimeInterval,repeats:Bool,closure:(Void->Void))->NSTimer{
         
-        let obj = CLTimerObj(closure: closure)
+        let obj = CLObject(closure: closure)
         
-        //`userInfo`为AnyObject？ `closure`为Any 所以这里CLTimerObj包装一下
+        //`userInfo`为AnyObject？ `closure`为Any 所以这里CLObject包装一下
         let timer = NSTimer(timeInterval: interval, target: self, selector: #selector(cl_closureInvoke(_:)), userInfo: obj, repeats: repeats)
         NSRunLoop.currentRunLoop().addTimer(timer, forMode: NSRunLoopCommonModes)
         return timer
@@ -40,7 +40,7 @@ public extension NSTimer{
     
     @objc private class func cl_closureInvoke(timer:NSTimer){
         
-        if let obj = timer.userInfo as? CLTimerObj{
+        if let obj = timer.userInfo as? CLObject{
             obj.closure()
         }
     }

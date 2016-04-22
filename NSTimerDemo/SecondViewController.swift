@@ -46,7 +46,7 @@ class SecondViewController: UIViewController {
             return
         }
         
-        cTimer = NSTimer(timeInterval: 3.0, target: self, selector: #selector(timeFire(_:)), userInfo: nil, repeats: true)
+        cTimer = NSTimer(timeInterval: 1.0, target: self, selector: #selector(timeFire(_:)), userInfo: nil, repeats: true)
         NSRunLoop.currentRunLoop().addTimer(cTimer!, forMode: NSRunLoopCommonModes)
         print("\(#file) start timer")
     }
