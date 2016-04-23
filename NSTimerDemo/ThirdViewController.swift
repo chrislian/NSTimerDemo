@@ -46,11 +46,11 @@ class ThirdViewController: UIViewController {
         }
         print("\(#file) start timer")
         
-        
         lTimer = NSTimer.cl_startTimer(1.0, repeats: true){ [weak self] in
             self?.timeFire()
             //这里`self`必须申明为`unowned` or `weak`, 否则会造成循环引用
         }
+        NSRunLoop.currentRunLoop().addTimer(lTimer!, forMode: NSRunLoopCommonModes)
     }
     
     private func stopTimer(){

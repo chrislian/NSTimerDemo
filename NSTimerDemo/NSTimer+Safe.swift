@@ -33,9 +33,8 @@ public extension NSTimer{
         
         //`userInfo`为AnyObject？ `closure`为Any 所以这里CLObject包装一下
         let timer = NSTimer(timeInterval: interval, target: self, selector: #selector(cl_closureInvoke(_:)), userInfo: obj, repeats: repeats)
-        NSRunLoop.currentRunLoop().addTimer(timer, forMode: NSRunLoopCommonModes)
-        return timer
         
+        return timer
     }
     
     @objc private class func cl_closureInvoke(timer:NSTimer){
