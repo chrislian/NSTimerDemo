@@ -22,36 +22,36 @@ class SecondViewController: UIViewController {
     }
     
     //MARK: - event response
-    @IBAction func startButtonClicked(sender: AnyObject) {
+    @IBAction func startButtonClicked(_ sender: AnyObject) {
         
         startTimer()
     }
     
-    @IBAction func stopButtonClicked(sender: AnyObject) {
+    @IBAction func stopButtonClicked(_ sender: AnyObject) {
         
         stopTimer()
     }
     
-    func timeFire(timer:NSTimer){
+    func timeFire(_ timer:Timer){
         
         print("\(#file) fire...Count:\(count)")
         count += 1
     }
     
     //MARK: - private method
-    private func startTimer(){
+    fileprivate func startTimer(){
         
         if let _ = cTimer{
             print("\(#file) timer is already running")
             return
         }
         
-        cTimer = NSTimer(timeInterval: 1.0, target: self, selector: #selector(timeFire(_:)), userInfo: nil, repeats: true)
-        NSRunLoop.currentRunLoop().addTimer(cTimer!, forMode: NSRunLoopCommonModes)
+        cTimer = Timer(timeInterval: 1.0, target: self, selector: #selector(timeFire(_:)), userInfo: nil, repeats: true)
+        RunLoop.current.add(cTimer!, forMode: RunLoopMode.commonModes)
         print("\(#file) start timer")
     }
     
-    private func stopTimer(){
+    fileprivate func stopTimer(){
         
         if let timer = cTimer{
             timer.invalidate()
@@ -62,7 +62,7 @@ class SecondViewController: UIViewController {
     }
     
     //MARK: - var & let
-    var cTimer:NSTimer?
+    var cTimer:Timer?
     var count = 0
 
 }

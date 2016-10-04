@@ -24,11 +24,11 @@ class ThirdViewController: UIViewController {
     }
     
     //MARK: - event response
-    @IBAction func startButtonClicked(sender: AnyObject) {
+    @IBAction func startButtonClicked(_ sender: AnyObject) {
         startTimer()
     }
     
-    @IBAction func stopButtonClicked(sender: AnyObject) {
+    @IBAction func stopButtonClicked(_ sender: AnyObject) {
         stopTimer()
     }
     
@@ -38,7 +38,7 @@ class ThirdViewController: UIViewController {
     }
     
     //MARK: - private method
-    private func startTimer(){
+    fileprivate func startTimer(){
         
         if let _ = lTimer{
             print("\(#file) timer is already running")
@@ -46,14 +46,14 @@ class ThirdViewController: UIViewController {
         }
         print("\(#file) start timer")
         
-        lTimer = NSTimer.cl_startTimer(1.0, repeats: true){ [weak self] in
+        lTimer = Timer.cl_startTimer(1.0, repeats: true){ [weak self] in
             self?.timeFire()
             //这里`self`必须申明为`unowned` or `weak`, 否则会造成循环引用
         }
-        NSRunLoop.currentRunLoop().addTimer(lTimer!, forMode: NSRunLoopCommonModes)
+        RunLoop.current.add(lTimer!, forMode: RunLoopMode.commonModes)
     }
     
-    private func stopTimer(){
+    fileprivate func stopTimer(){
         
         if let timer = lTimer{
             timer.invalidate()
@@ -64,6 +64,6 @@ class ThirdViewController: UIViewController {
     }
     
     //MARK: - var & let
-    var lTimer:NSTimer?
+    var lTimer:Timer?
     var count = 0
 }

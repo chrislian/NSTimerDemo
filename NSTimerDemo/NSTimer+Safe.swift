@@ -8,15 +8,7 @@
 
 import Foundation
 
-public extension NSTimer{
-    
-    private class CLObject{
-        
-        let closure:(Void->Void)
-        init(closure:(Void->Void)){
-            self.closure = closure
-        }
-    }
+public extension Timer{
     
     /**
      定时器
@@ -27,20 +19,19 @@ public extension NSTimer{
      
      - returns: NSTimer
      */
-    public class func cl_startTimer(interval:NSTimeInterval,repeats:Bool,closure:(Void->Void))->NSTimer{
+    public class func cl_startTimer(_ interval:TimeInterval,repeats:Bool,closure:@escaping ((Void)->Void))->Timer{
         
-        let obj = CLObject(closure: closure)
         
-        //`userInfo`为AnyObject？ `closure`为Any 所以这里CLObject包装一下
-        let timer = NSTimer(timeInterval: interval, target: self, selector: #selector(cl_closureInvoke(_:)), userInfo: obj, repeats: repeats)
+        let timer = Timer(timeInterval: interval, target: self, selector: #selector(cl_closureInvoke(_:)), userInfo:closure, repeats: repeats)
         
         return timer
     }
     
-    @objc private class func cl_closureInvoke(timer:NSTimer){
+    @objc fileprivate class func cl_closureInvoke(_ timer:Timer){
         
-        if let obj = timer.userInfo as? CLObject{
-            obj.closure()
+        if let clourse = timer.userInfo as? ((Void)->Void) {
+            clourse()
         }
+        
     }
 }
